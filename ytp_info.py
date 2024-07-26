@@ -1,4 +1,3 @@
-import os
 import sys
 
 from pytubefix import YouTube
@@ -15,11 +14,12 @@ def main(args: list[str]) -> int:
         return 404
 
     video = YouTube(link)
-    title:str = video.title + ".mp3"
 
-    stream = video.streams.get_audio_only()
-    file = stream.download()
-    os.rename(file, title)
+    author = video.author
+    if " - Topic" in author:
+        author = author.replace(" - Topic", "")
+    print(author)
+    print(video.title)
 
     return 0
 

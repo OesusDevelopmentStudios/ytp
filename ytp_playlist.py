@@ -1,7 +1,6 @@
-import os
 import sys
 
-from pytubefix import YouTube
+from pytubefix import Playlist
 
 from utils.utils import check_link
 
@@ -14,12 +13,11 @@ def main(args: list[str]) -> int:
     if not check_link(link):
         return 404
 
-    video = YouTube(link)
-    title:str = video.title + ".mp3"
-
-    stream = video.streams.get_audio_only()
-    file = stream.download()
-    os.rename(file, title)
+    links: list[str] = []
+    playlist = Playlist(link)
+    for video in playlist.videos:
+        links.append("https://www.youtube.com/watch?v=" + video.video_id)
+    print(links)
 
     return 0
 
