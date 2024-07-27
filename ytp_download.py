@@ -1,15 +1,19 @@
+import os
 import sys
 
 from pytubefix import YouTube
 
 from utils.utils import check_link
 
-def get_info(link: str) -> list[str]:
+
+def download(link: str) -> int:
     video = YouTube(link)
-    author = video.author
-    if " - Topic" in author:
-        author = author.replace(" - Topic", "")
-    return [video.title, author]
+    title:str = video.title + ".mp3"
+
+    stream = video.streams.get_audio_only()
+    file = stream.download()
+    os.rename(file, title)
+    return 0
 
 
 def main(args: list[str]) -> int:
@@ -18,7 +22,7 @@ def main(args: list[str]) -> int:
     link: str = args[1]
     if not check_link(link):
         return 404
-    get_info(link)
+    download(link)
     return 0
 
 
