@@ -1,10 +1,11 @@
 import sys
 
-from utils.utils import check_link
-
-from ytp_download import download
-from ytp_info import get_info
-from ytp_playlist import get_videos
+from ytp_scripts import (
+    check_link,
+    download,
+    get_info,
+    get_videos,
+)
 
 
 PLAYLIST_PATTERN: str = "&list="
