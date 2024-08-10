@@ -27,9 +27,10 @@ def check_link(link: str) -> bool:
     return False if YT_MATCHER in remote.text else True
 
 
-def download(link: str) -> bool:
+def download(link: str, title: str = "") -> bool:
     video = YouTube(link)
-    title:str = video.title + ".mp3"
+    if title == "":
+        title = video.title + ".mp3"
 
     try:
         stream = video.streams.get_audio_only()
