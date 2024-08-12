@@ -52,7 +52,7 @@ def get_info(link: str) -> list[str]:
     author = video.author
     if " - Topic" in author:
         author = author.replace(" - Topic", "")
-    return [video.title, author]
+    return [video.title, author, video.video_id]
 
 
 def get_videos(link: str) -> list[str]:
