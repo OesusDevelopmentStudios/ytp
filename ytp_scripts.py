@@ -2,6 +2,7 @@ import os
 import requests
 import validators
 
+from moviepy.editor import AudioFileClip
 from pytubefix import (
     Playlist,
     YouTube
@@ -43,7 +44,9 @@ def download(link: str, title: str = "", temp: str = "./", dest: str = "") -> bo
         file = stream.download(temp)
     except:
         return False
-    os.rename(file, destination)
+    videoFile = AudioFileClip(file)
+    videoFile.write_audiofile(destination)
+    os.remove(file)
     return True
 
 
