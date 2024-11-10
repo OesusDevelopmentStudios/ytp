@@ -32,6 +32,7 @@ def download(link: str, title: str = "", temp: str = "./", dest: str = "") -> bo
     video = YouTube(link)
     if title == "":
         title = video.title + ".mp3"
+        title = title.replace(":", "")
 
     destination : str
     if dest == "":
@@ -41,9 +42,10 @@ def download(link: str, title: str = "", temp: str = "./", dest: str = "") -> bo
 
     try:
         stream = video.streams.get_audio_only()
-        file = stream.download(temp)
+        file = stream.download(output_path=temp, filename="temp.m4a")
     except:
         return False
+
     videoFile = AudioFileClip(file)
     videoFile.write_audiofile(destination)
     os.remove(file)
